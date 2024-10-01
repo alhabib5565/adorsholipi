@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import deleteIcon from "../../../../assets/icon-png/Delete.png";
-import editIcon from "../../../../assets/icon-png/EditSquare.png";
+// import deleteIcon from "../../../../assets/icon-png/Delete.png";
+// import editIcon from "../../../../assets/icon-png/EditSquare.png";
 // import showIcon from "../../../../assets/icon-png/Show.png";
 
 import {
@@ -41,7 +41,7 @@ const parents = [
     numberOfChild: 3,
   },
 ];
-const GuestUser = () => {
+const AdminUser = () => {
   return (
     <div className="space-y-6">
       <PageHeader />
@@ -58,53 +58,46 @@ const GuestUser = () => {
             <TableHeader className="bg-secondary">
               <TableRow>
                 <TableHead className="w-[100px] text-primary font-medium">
-                  Device ID
+                  #
                 </TableHead>
-                <TableHead className="text-primary">
-                  Session Start Time
+                <TableHead className="text-primary">Name</TableHead>
+                <TableHead className="text-primary font-medium">
+                  Email
                 </TableHead>
                 <TableHead className="text-primary font-medium">
-                  Session Duration
+                  User Role
                 </TableHead>
-                <TableHead className="text-primary font-medium">
-                  Pages Viewed
-                </TableHead>
-                <TableHead className="text-primary font-medium">
-                  Features Used
-                </TableHead>
-                <TableHead className="text-primary font-medium">
-                  Last Activity
-                </TableHead>
-                <TableHead className="text-primary font-medium">
-                  Status
-                </TableHead>
+
                 <TableHead className="text-primary font-medium text-right">
                   Action
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {parents.map((parrent) => (
-                <TableRow key={parrent.email}>
-                  <TableCell>A12BCD45EFG</TableCell>
-                  <TableCell>2024-09-28 10:00 AM</TableCell>
-                  <TableCell>5m</TableCell>
-                  <TableCell>10</TableCell>
-                  <TableCell>Library, Alphabet রং, ছড়া</TableCell>
-                  <TableCell>Kids</TableCell>
+              {parents.map((user, index) => (
+                <TableRow key={user.email}>
+                  <TableCell>{index}</TableCell>
+                  <TableCell>{user.parentName}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+
                   <TableCell>
                     <span className="px-3 rounded-[12px] py-0.5 bg-secondary text-[#667085] text-sm font-medium flex items-center gap-2 w-fit">
                       <span className="size-0.5 p-0.5 rounded-full bg-[#667085]"></span>{" "}
-                      Activity
+                      Super Admin
                     </span>
                   </TableCell>
                   <TableCell className="flex gap-4 justify-end">
-                    <button className="size-6">
-                      <img src={editIcon} />
-                    </button>
-                    <button className="size-6">
-                      <img src={deleteIcon} />
-                    </button>
+                    <div className="justify-end items-center flex text-white">
+                      <button className="px-1.5 py-1 bg-[#6b7280]  rounded-tl rounded-bl text-center  text-xs font-normal leading-[18px] tracking-tight">
+                        View
+                      </button>
+                      <button className="px-1.5 py-1 bg-[#4383ce] text-center  text-xs font-normal leading-[18px] tracking-tight">
+                        Edit
+                      </button>
+                      <button className="px-1.5 py-1 bg-red-600 rounded-tr rounded-br text-center  text-xs font-normal leading-[18px] tracking-tight">
+                        Delete
+                      </button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -120,4 +113,4 @@ const GuestUser = () => {
   );
 };
 
-export default GuestUser;
+export default AdminUser;

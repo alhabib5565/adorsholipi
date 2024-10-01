@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import MyPagination from "@/components/myUi/MyPagination";
 import ParentDetailModal from "./ParentDetailModal";
+import PageHeader from "@/components/shared/PageHeader";
 
 const parents = [
   {
@@ -43,7 +44,8 @@ const parents = [
 ];
 const ParentAccount = () => {
   return (
-    <div>
+    <div className="space-y-6">
+      <PageHeader />
       <div className="p-6 border rounded-[16px] grid gap-4">
         <div className="px-6 py-4 flex justify-between items-center gap-4 ">
           <h3 className="flex-grow">Parent account</h3>
@@ -70,6 +72,9 @@ const ParentAccount = () => {
                 <TableHead className="text-primary font-medium">
                   Number Of Child
                 </TableHead>
+                <TableHead className="text-primary font-medium">
+                  Status
+                </TableHead>
                 <TableHead className="text-primary font-medium text-right">
                   Action
                 </TableHead>
@@ -84,6 +89,12 @@ const ParentAccount = () => {
                   <TableCell>{parrent.lastLogin}</TableCell>
                   <TableCell>{parrent.status}</TableCell>
                   <TableCell>{parrent.numberOfChild}</TableCell>
+                  <TableCell>
+                    <span className="px-3 rounded-[12px] py-0.5 bg-secondary text-[#667085] text-sm font-medium flex items-center gap-2 w-fit">
+                      <span className="size-0.5 p-0.5 rounded-full bg-[#667085]"></span>{" "}
+                      Activity
+                    </span>
+                  </TableCell>
                   <TableCell className="flex gap-4 justify-end">
                     <ParentDetailModal />
                     <button className="size-6">

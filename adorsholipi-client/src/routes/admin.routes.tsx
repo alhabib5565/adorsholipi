@@ -1,11 +1,14 @@
+import AdminUser from "@/components/pages/dashboard/adminUser/AdminUser";
+import GuestUser from "@/components/pages/dashboard/guestUser/GuestUser";
+import KidsProfile from "@/components/pages/dashboard/kidsProfile/KidsProfile";
 import ParentAccount from "@/components/pages/dashboard/parentAccount/ParentAccount";
 import { TUserPath } from "@/type/paths.type";
-import { LayoutDashboard, User } from "lucide-react";
+import { LayoutDashboard, User, UserCog } from "lucide-react";
 
 export const adminPaths: TUserPath[] = [
   {
     label: "Dashboard",
-    href: "dashboard",
+    href: "/",
     icon: LayoutDashboard,
     element: <h1>dashboard home</h1>,
   },
@@ -23,7 +26,31 @@ export const adminPaths: TUserPath[] = [
         label: "Kids Profile",
         href: "kids-profile",
         icon: User,
-        element: <h1>kids profile</h1>,
+        element: <KidsProfile />,
+      },
+      {
+        label: "Guest User",
+        href: "guest-user",
+        icon: User,
+        element: <GuestUser />,
+      },
+    ],
+  },
+  {
+    label: "User Management",
+    icon: UserCog,
+    children: [
+      {
+        label: "Admin User",
+        href: "admin-user",
+        icon: User,
+        element: <AdminUser />,
+      },
+      {
+        label: "Admin Roles",
+        href: "admin-roles",
+        icon: User,
+        element: <h3>Admin User</h3>,
       },
     ],
   },

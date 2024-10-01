@@ -14,13 +14,13 @@ const SingleSidebarItem = ({ item, isDropdownItem }: SidebarItemProps) => {
       to={`${item?.href}`}
       className={({ isActive }) =>
         cn(
-          `w-full hover:bg-secondary flex gap-3 items-center justify-between rounded-[8px] p-4 text-[16px] leading-[22.4px] tracking-[0.2px] text-light-subtext`,
+          "w-full hover:bg-secondary flex gap-2 items-center justify-between rounded-[8px] p-4 text-[16px] leading-[22.4px] tracking-[0.2px] text-light-subtext",
           { "bg-secondary text-primary": isActive },
           { "pl-6": isDropdownItem }
         )
       }
     >
-      <div className="flex gap-3 items-center">
+      <div className="flex gap-4 items-center">
         {isDropdownItem ? (
           <Dot />
         ) : (

@@ -13,18 +13,18 @@ const SidebarDropdownItem = ({ item }: { item: TUserPath }) => {
     <div className={cn({ "bg-[#EDF4FC80]": isDropdownOpen })}>
       <button
         onClick={handleDropdownOpen}
-        className="hover:bg-secondary w-full flex gap-3 items-center rounded-[8px] p-4 text-[16px] leading-[22.4px] tracking-[0.2px] text-light-subtext"
+        className="hover:bg-secondary w-full flex gap-2 items-center justify-between rounded-[8px] p-4 text-[16px] leading-[22.4px] tracking-[0.2px] text-light-subtext"
       >
         <div className="w-full flex justify-start gap-4 cursor-pointer">
           <item.icon className="size-6 text-primary" />
           <span className="grow text-left"> {item?.label}</span>
-          <ChevronDown
-            className={cn("text-light-subtext size-5", {
-              "rotate-180 duration-300 ": isDropdownOpen,
-              "rotate-0 duration-300 ": !isDropdownOpen,
-            })}
-          />
         </div>
+        <ChevronDown
+          className={cn("text-light-subtext size-5", {
+            "rotate-180 duration-300 ": isDropdownOpen,
+            "rotate-0 duration-300 ": !isDropdownOpen,
+          })}
+        />
       </button>
 
       {isDropdownOpen && (
