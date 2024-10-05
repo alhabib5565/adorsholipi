@@ -5,7 +5,7 @@ import { TUserPath } from "@/type/paths.type";
 import SingleSidebarItem from "./SingleSidebarItem";
 
 const SidebarDropdownItem = ({ item }: { item: TUserPath }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleDropdownOpen = () => {
     setIsDropdownOpen((prev) => !prev);
   };

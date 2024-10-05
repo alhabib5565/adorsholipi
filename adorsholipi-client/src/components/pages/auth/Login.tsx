@@ -22,8 +22,8 @@ const formSchema = z.object({
 });
 
 const defaultValue = {
-  email: "e",
-  password: "p",
+  email: "",
+  password: "",
 };
 
 const Login = () => {
@@ -64,13 +64,13 @@ const Login = () => {
                   placeholder="Password"
                 />
                 <div className="flex justify-between">
-                  <span className="text-[#667085] text-base font-normal font-['Roboto'] leading-normal">
+                  <span className="text-[#667085] text-base font-normal font-roboto leading-normal">
                     Remember me
                   </span>
 
                   <Link
                     to={"#"}
-                    className="text-[#ffcd05] text-base font-normal font-['Roboto'] leading-normal"
+                    className="text-[#ffcd05] text-base font-normal font-roboto leading-normal"
                   >
                     Forgot Password
                   </Link>

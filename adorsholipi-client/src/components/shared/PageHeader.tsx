@@ -11,18 +11,29 @@ const PageHeader = () => {
   return (
     <div className="flex justify-between items-center ">
       <div>
-        <h2 className="text-[#343a40] text-2xl font-semibold font-['Roboto'] leading-9 capitalize">
-          {pageName.split("-").join(" ")}
+        <h2 className="text-[#343a40] text-2xl font-semibold font-roboto leading-9 capitalize">
+          {pathname === "/" ? "Dashboard" : pageName.split("-").join(" ")}
         </h2>
         <div className="flex gap-2 items-center text-sm font-normal">
-          {breadcrumbItems.map((item, index) => (
-            <span key={index} className="flex items-center">
-              <span className="capitalize">{item.replace("-", " ")}</span>
-              {index !== breadcrumbItems.length - 1 && (
-                <ChevronRight size={14} className="ml-2" />
-              )}
+          {pathname === "/" ? (
+            <span className="flex items-center">
+              <span className="capitalize">Dashboard</span>
+
+              <ChevronRight size={14} className="ml-2" />
+              <span>Home</span>
             </span>
-          ))}
+          ) : (
+            <>
+              {breadcrumbItems.map((item, index) => (
+                <span key={index} className="flex items-center">
+                  <span className="capitalize">{item.replace("-", " ")}</span>
+                  {index !== breadcrumbItems.length - 1 && (
+                    <ChevronRight size={14} className="ml-2" />
+                  )}
+                </span>
+              ))}
+            </>
+          )}
         </div>
       </div>
 

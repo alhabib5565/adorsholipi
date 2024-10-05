@@ -6,7 +6,7 @@ import logo from "../../../../assets/logo/logo.png";
 
 const DesktopSidebar = () => {
   return (
-    <div className=" w-[300px] fixed top-0 left-0 min-h-screen overflow-y-scroll p-6">
+    <div className=" w-[300px] fixed top-0 left-0 min-h-screen h-full overflow-y-scroll p-6">
       <Link to={"#"}>
         <img alt="logo" src={logo} className="mx-auto my-4 w-full" />
       </Link>
