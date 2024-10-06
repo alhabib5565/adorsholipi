@@ -12,8 +12,10 @@ import {
 import MyPagination from "@/components/myUi/MyPagination";
 import PageHeader from "@/components/shared/PageHeader";
 import { QrCode } from "lucide-react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
-const kids = [
+const qrCodes = [
   {
     childName: "John Doe",
     email: "johndoe@example.com",
@@ -40,22 +42,49 @@ const kids = [
   },
 ];
 
+const activationPageTabItems = [
+  {
+    lebel: "All",
+    value: "all",
+  },
+  {
+    lebel: "Active QR Code",
+    value: "active",
+  },
+  {
+    lebel: "Inactive QR Code",
+    value: "inactive",
+  },
+];
+
 const QRActivation = () => {
+  const [activeTab, setActiveTab] = useState("all");
+
+  const handleActiveTabChange = (tabItem: string) => {
+    setActiveTab(tabItem);
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader />
       <div className="p-6 border rounded-[16px] grid gap-4">
         <div className="px-6 py-4 flex justify-between items-center gap-4 ">
           <div className="w-[489px] h-6 justify-start items-center gap-6 inline-flex">
-            <div className="text-center text-[#007bff] text-lg font-semibold ">
-              All
-            </div>
-            <div className="text-center text-gray-600 text-lg font-medium ">
-              Active QR Code
-            </div>
-            <div className="text-center text-gray-600 text-lg font-medium ">
-              Inactive QR Code
-            </div>
+            {activationPageTabItems.map((tabItem, index) => (
+              <Button
+                key={index}
+                variant="link"
+                onClick={() => handleActiveTabChange(tabItem.value)}
+                className={cn(
+                  "text-center text-gray-600 text-lg font-semibold p-0 h-fit hover:no-underline",
+                  {
+                    "text-[#007bff]": tabItem.value === activeTab,
+                  }
+                )}
+              >
+                {tabItem.lebel}
+              </Button>
+            ))}
           </div>
 
           <div className="flex gap-4">
@@ -85,14 +114,14 @@ const QRActivation = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {kids.map((parrent, index) => (
+              {qrCodes.map((parrent, index) => (
                 <TableRow key={parrent.email}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>
-                    <div className="h-14 px-1 py-2 bg-white border-b border-[#f2f4f7] justify-start items-center gap-2 inline-flex">
+                    <div className="border-b border-[#f2f4f7] justify-start items-center gap-2 inline-flex">
                       {/* <div className="w-8 h-8 relative rounded" /> */}
                       {/* <img src=""/> */}
-                      <QrCode className="w-8 h-8 relative rounded" />
+                      <QrCode className="size-8 relative rounded" />
                       <span className="text-[#475467] text-sm font-normal font-roboto leading-tight tracking-tight">
                         67324873
                       </span>
@@ -102,7 +131,7 @@ const QRActivation = () => {
                   <TableCell>2024-09-28 10:00 AM</TableCell>
                   <TableCell>A12BCD45EFG</TableCell>
 
-                  <TableCell className="flex gap-4 justify-end">
+                  <TableCell className="h-full">
                     <div className="justify-end items-center flex text-white">
                       <button className="px-1.5 py-1 bg-[#2ec9c9]  rounded-tl rounded-bl text-center  text-xs font-normal leading-[18px] tracking-tight">
                         Show
