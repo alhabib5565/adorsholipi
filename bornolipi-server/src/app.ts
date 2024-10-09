@@ -7,7 +7,8 @@ import { notFound } from './app/middlewares/notFound';
 const app = express();
 
 const allowedOrigins: string[] = [
-  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://bornolipi.vercel.app',
   // '',
 ];
 
