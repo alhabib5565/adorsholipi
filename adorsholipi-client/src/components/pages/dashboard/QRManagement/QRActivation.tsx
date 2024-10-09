@@ -11,36 +11,17 @@ import {
 } from "@/components/ui/table";
 import MyPagination from "@/components/myUi/MyPagination";
 import PageHeader from "@/components/shared/PageHeader";
-import { QrCode } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useGetAllQRCodsQuery } from "@/redux/api/qr-code.api";
 
-const qrCodes = [
-  {
-    childName: "John Doe",
-    email: "johndoe@example.com",
-    accountCreationDate: "2023-01-15",
-    lastLogin: "2024-09-29",
-    status: "active",
-    numberOfChild: 2,
-  },
-  {
-    childName: "Jane Smith",
-    email: "janesmith@example.com",
-    accountCreationDate: "2022-07-20",
-    lastLogin: "2024-09-28",
-    status: "inactive",
-    numberOfChild: 1,
-  },
-  {
-    childName: "Michael Johnson",
-    email: "michaelj@example.com",
-    accountCreationDate: "2021-11-05",
-    lastLogin: "2024-09-26",
-    status: "active",
-    numberOfChild: 3,
-  },
-];
+export type TQRCode = {
+  createdAt: string;
+  qrCodeURL: string;
+  uniqueCode: string;
+  updatedAt: string;
+  _id: string;
+};
 
 const activationPageTabItems = [
   {
@@ -59,6 +40,27 @@ const activationPageTabItems = [
 
 const QRActivation = () => {
   const [activeTab, setActiveTab] = useState("all");
+
+  const { data, isLoading } = useGetAllQRCodsQuery({});
+  if (isLoading) {
+    return <p>Loading..</p>;
+  }
+
+  const formatToTargetDate = (dateStr: string) => {
+    const targetDate = new Date(dateStr);
+
+    // Format the date to "YYYY-MM-DD hh:mm AM/PM"
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    };
+
+    return targetDate.toLocaleString("en-US", options).replace(",", "");
+  };
 
   const handleActiveTabChange = (tabItem: string) => {
     setActiveTab(tabItem);
@@ -114,20 +116,20 @@ const QRActivation = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {qrCodes.map((parrent, index) => (
-                <TableRow key={parrent.email}>
+              {data.data.map((qrCode: TQRCode, index: number) => (
+                <TableRow key={qrCode._id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>
                     <div className="border-b border-[#f2f4f7] justify-start items-center gap-2 inline-flex">
-                      {/* <div className="w-8 h-8 relative rounded" /> */}
-                      {/* <img src=""/> */}
-                      <QrCode className="size-8 relative rounded" />
+                      <div className="w-8 h-8 relative rounded">
+                        <img src={qrCode.qrCodeURL} />
+                      </div>
                       <span className="text-[#475467] text-sm font-normal font-roboto leading-tight tracking-tight">
-                        67324873
+                        {qrCode.uniqueCode}
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell>2024-09-28 10:00 AM</TableCell>
+                  <TableCell>{formatToTargetDate(qrCode.createdAt)}</TableCell>
                   <TableCell>2024-09-28 10:00 AM</TableCell>
                   <TableCell>A12BCD45EFG</TableCell>
 

@@ -7,15 +7,24 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
 
 type TMyRadioGroup = {
   name: string;
   items: string[];
+  onValueChange: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const MyRadioGroup = ({ name, items }: TMyRadioGroup) => {
+const MyRadioGroup = ({ name, items, onValueChange }: TMyRadioGroup) => {
   const form = useFormContext();
+  const value = useWatch({
+    control: form.control,
+    name,
+  });
+  useEffect(() => {
+    onValueChange(value);
+  }, [value, onValueChange]);
   return (
     <FormField
       control={form.control}

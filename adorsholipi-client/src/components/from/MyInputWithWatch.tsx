@@ -16,7 +16,7 @@ type TMyInputWithWatch = {
   type: HTMLInputTypeAttribute;
   placeholder: string;
   isGrid?: boolean;
-  onValueChange: React.Dispatch<React.SetStateAction<string>>;
+  onValueChange: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const MyInputWithWatch = ({
