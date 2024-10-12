@@ -14,14 +14,8 @@ import PageHeader from "@/components/shared/PageHeader";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useGetAllQRCodsQuery } from "@/redux/api/qr-code.api";
-
-export type TQRCode = {
-  createdAt: string;
-  qrCodeURL: string;
-  uniqueCode: string;
-  updatedAt: string;
-  _id: string;
-};
+import { TQRCode } from "./type.qrcode";
+import { formatToTargetDate } from "./qrCode.utils";
 
 const activationPageTabItems = [
   {
@@ -45,23 +39,6 @@ const QRActivation = () => {
   if (isLoading) {
     return <p>Loading..</p>;
   }
-
-  const formatToTargetDate = (dateStr: string) => {
-    const targetDate = new Date(dateStr);
-
-    // Format the date to "YYYY-MM-DD hh:mm AM/PM"
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    };
-
-    return targetDate.toLocaleString("en-US", options).replace(",", "");
-  };
-
   const handleActiveTabChange = (tabItem: string) => {
     setActiveTab(tabItem);
   };

@@ -12,7 +12,7 @@ import { Label } from "@radix-ui/react-label";
 
 import { useGenerateQRCodeMutation } from "@/redux/api/qr-code.api";
 import PrintOrDownLoadQRCode from "./PrintOrDownLoadQRCode";
-import { TQRCode } from "./QRActivation";
+import { TQRCode } from "./type.qrcode";
 // import { TQRCode } from "./QRActivation";
 
 // Utility function to generate bulk QR codes
@@ -53,11 +53,19 @@ const QRGenerate = () => {
     setCode(generatedCodes);
   }, [generatedCodes]);
 
-  let qrCodeURL: string[] = [];
+  let qrCode = [];
   if (data?.data) {
-    qrCodeURL = Array.isArray(data.data)
-      ? data?.data.map((qrCodeItem: TQRCode) => qrCodeItem.qrCodeURL)
-      : [data.data.qrCodeURL];
+    qrCode = Array.isArray(data.data)
+      ? data?.data.map((qrCodeItem: TQRCode) => ({
+          uniqueCode: qrCodeItem.uniqueCode,
+          qrCodeURL: qrCodeItem.qrCodeURL,
+        }))
+      : [
+          {
+            uniqueCode: data?.data?.uniqueCode,
+            qrCodeURL: data?.data?.qrCodeURL,
+          },
+        ];
   }
 
   const onSubmit = async () => {
@@ -136,7 +144,7 @@ const QRGenerate = () => {
         </div>
 
         <div className="md:col-span-2">
-          {data?.data && <PrintOrDownLoadQRCode qrCodeURLs={qrCodeURL} />}
+          {data?.data && <PrintOrDownLoadQRCode qrCodes={qrCode} />}
         </div>
       </div>
     </div>

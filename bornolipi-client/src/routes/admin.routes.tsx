@@ -4,6 +4,7 @@ import DashboardHome from "@/components/pages/dashboard/dashboardHome/DashboardH
 import GuestUser from "@/components/pages/dashboard/guestUser/GuestUser";
 import KidsProfile from "@/components/pages/dashboard/kidsProfile/KidsProfile";
 import ParentAccount from "@/components/pages/dashboard/parentAccount/ParentAccount";
+import PrintQR from "@/components/pages/dashboard/QRManagement/PrintQR";
 import QRActivation from "@/components/pages/dashboard/QRManagement/QRActivation";
 import QRGenerate from "@/components/pages/dashboard/QRManagement/QRGenerate";
 import { TUserPath } from "@/type/paths.type";
@@ -79,6 +80,12 @@ export const adminPaths: TUserPath[] = [
         href: "qr-management/activation-qr",
         icon: QrCode,
         element: <QRActivation />,
+      },
+      {
+        label: "Print QR",
+        href: "qr-management/print-qr",
+        icon: QrCode,
+        element: <PrintQR />,
       },
     ],
   },

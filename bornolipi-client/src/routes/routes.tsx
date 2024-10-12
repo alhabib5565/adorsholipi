@@ -5,6 +5,8 @@ import DashboardLayout from "@/components/layout/dashboardLayout/DashboardLayout
 import Login from "@/components/pages/auth/Login";
 import Register from "@/components/pages/auth/Register";
 
+// console.log(routeGenerator(adminPaths), "path");
+
 export const router = createBrowserRouter([
   {
     path: "/",

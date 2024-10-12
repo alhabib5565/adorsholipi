@@ -1,10 +1,17 @@
-import { Button } from "@/components/ui/button";
 import { Download, Printer, QrCode } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { TQRCode } from "./type.qrcode";
 
-const PrintOrDownLoadQRCode = ({ qrCodeURLs }: { qrCodeURLs: string[] }) => {
-  const imagesHtml = qrCodeURLs
+type TPrintOrDownloadPageProps = {
+  qrCodes: Pick<TQRCode, "uniqueCode" | "qrCodeURL">[];
+};
+
+const PrintOrDownloadQRCode = ({ qrCodes }: TPrintOrDownloadPageProps) => {
+  const qrCodeURLs = qrCodes.map((code) => code.qrCodeURL);
+  const imagesHtml = qrCodes
     .map(
-      (url) => `<img src="${url}" style="max-width: 150px; margin: 10px;" />`
+      (code) =>
+        `<img src="${code.qrCodeURL}" style="max-width: 150px; margin: 10px;" />`
     )
     .join("");
 
@@ -18,17 +25,17 @@ const PrintOrDownLoadQRCode = ({ qrCodeURLs }: { qrCodeURLs: string[] }) => {
             <style>
               body {
                 display: flex;
-                flex-wrap: wrap; 
-                justify-content: flex-start; 
-                align-items: flex-start;  
-                height: auto; 
-                margin: 0; 
-                padding: 0; 
-                gap: 16px; 
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: flex-start;
+                height: auto;
+                margin: 0;
+                padding: 0;
+                gap: 16px;
               }
               img {
-                max-width: 100%; 
-                height: auto; 
+                max-width: 100%;
+                height: auto;
               }
             </style>
           </head>
@@ -40,6 +47,7 @@ const PrintOrDownLoadQRCode = ({ qrCodeURLs }: { qrCodeURLs: string[] }) => {
       printWindow.document.close();
       printWindow.focus();
       printWindow.print();
+
       printWindow.close();
     }
   };
@@ -54,6 +62,7 @@ const PrintOrDownLoadQRCode = ({ qrCodeURLs }: { qrCodeURLs: string[] }) => {
       document.body.removeChild(link);
     });
   };
+
   return (
     <div className="border p-4 space-y-6">
       <div className="grid grid-cols-2 gap-4 size-[260px] mx-auto">
@@ -63,8 +72,8 @@ const PrintOrDownLoadQRCode = ({ qrCodeURLs }: { qrCodeURLs: string[] }) => {
         <QrCode className="w-full h-full" />
       </div>
 
-      <p className="text-center w-fit mx-auto text-gray-700 text-lg font-medium leading-normal tracking-tightp-2.5 bg-[#ebfff8] rounded ">
-        {qrCodeURLs.length} QR codes generated
+      <p className="text-center w-fit mx-auto text-gray-700 text-lg font-medium leading-normal tracking-tight p-2.5 bg-[#ebfff8] rounded">
+        {qrCodes.length} QR codes generated
       </p>
 
       <div className="flex gap-4 justify-center">
@@ -79,4 +88,4 @@ const PrintOrDownLoadQRCode = ({ qrCodeURLs }: { qrCodeURLs: string[] }) => {
   );
 };
 
-export default PrintOrDownLoadQRCode;
+export default PrintOrDownloadQRCode;

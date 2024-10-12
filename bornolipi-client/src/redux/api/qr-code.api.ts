@@ -12,6 +12,15 @@ const qrCodeApi = baseApi.injectEndpoints({
       invalidatesTags: [tags.QRCode],
     }),
 
+    changeQrCodePrintStatus: builder.mutation({
+      query: (data) => ({
+        url: "/qr-codes/change-print-satus",
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: [tags.QRCode],
+    }),
+
     getAllQRCods: builder.query({
       query: () => ({
         url: "/qr-codes",
@@ -21,4 +30,8 @@ const qrCodeApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGenerateQRCodeMutation, useGetAllQRCodsQuery } = qrCodeApi;
+export const {
+  useGenerateQRCodeMutation,
+  useGetAllQRCodsQuery,
+  useChangeQrCodePrintStatusMutation,
+} = qrCodeApi;
