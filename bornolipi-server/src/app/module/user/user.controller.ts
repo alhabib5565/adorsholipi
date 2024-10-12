@@ -4,6 +4,16 @@ import { UserService } from './user.service';
 import { sendResponse } from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
+const createUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.createUser(req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    message: 'Users created successfully.',
+    data: result,
+  });
+});
+
 const getAlluser = catchAsync(async (req: Request, res: Response) => {
   const { result, meta } = await UserService.getAlluser(req.query);
 
@@ -36,6 +46,7 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const UserController = {
+  createUser,
   getAlluser,
   getSingleUser,
   updateUser,

@@ -12,6 +12,7 @@ const userSchema = new Schema<TUser>(
       unique: true,
     },
     name: { type: String, required: true },
+    designation: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: 0 },
     role: {

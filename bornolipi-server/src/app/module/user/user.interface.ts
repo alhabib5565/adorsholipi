@@ -6,6 +6,7 @@ export type TUser = {
   email: string;
   role: TUserRole;
   password: string;
+  designation: string;
   status: TUserStatus;
   isDeleted: boolean;
   profileImage?: string;

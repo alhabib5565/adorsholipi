@@ -10,6 +10,8 @@ router.post(
   validateRequest(QrCodeValidation.createQrCodeValidationShema),
   QRCodeController.generateQRCode,
 );
+
+router.patch('/change-print-satus', QRCodeController.changePrintStatus);
 router.get('/', QRCodeController.getAllQrCode);
 
 export const qrCodeRouter = router;

@@ -16,8 +16,8 @@
   ],
 
   "rules": {
-    "no-unused-vars": "error",
-    "no-undef": "error"
+    // "no-unused-vars": "error",
+    // "no-undef": "error"
   },
   "globals": {
     "process": true

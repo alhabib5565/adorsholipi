@@ -14,6 +14,11 @@ const createQrCodeValidationShema = z.object({
   ),
 });
 
+const changePrintStatusValidationSchema = z
+  .array(z.string())
+  .min(1, { message: 'Please provide unique code' });
+
 export const QrCodeValidation = {
   createQrCodeValidationShema,
+  changePrintStatusValidationSchema,
 };

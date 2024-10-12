@@ -36,9 +36,19 @@ const getAllQrCode = async () => {
   return result;
 };
 
+const changePrintStatus = async (payload: string[]) => {
+  const result = await QRCode.updateMany(
+    { uniqueCode: { $in: payload } },
+    { $set: { isPrinted: 'Painted' } },
+    { new: true },
+  );
+  console.log(result);
+  return result;
+};
 export const QRCodeService = {
   generateQRCode,
   getAllQrCode,
+  changePrintStatus,
 };
 
 /*

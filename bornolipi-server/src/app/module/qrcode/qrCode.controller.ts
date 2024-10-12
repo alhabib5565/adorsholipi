@@ -23,8 +23,18 @@ const generateQRCode = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const changePrintStatus = catchAsync(async (req: Request, res: Response) => {
+  const result = await QRCodeService.changePrintStatus(req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    message: 'Change QR Code print satus successfully.',
+    data: result,
+  });
+});
 
 export const QRCodeController = {
   getAllQrCode,
   generateQRCode,
+  changePrintStatus,
 };
