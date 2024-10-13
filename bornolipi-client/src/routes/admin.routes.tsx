@@ -7,6 +7,8 @@ import ParentAccount from "@/components/pages/dashboard/parentAccount/ParentAcco
 import PrintQR from "@/components/pages/dashboard/QRManagement/PrintQR";
 import QRActivation from "@/components/pages/dashboard/QRManagement/QRActivation";
 import QRGenerate from "@/components/pages/dashboard/QRManagement/QRGenerate";
+import KidsVoices from "@/components/pages/dashboard/voice/KidsVoices";
+import UploadKidsVoice from "@/components/pages/dashboard/voice/UploadKidsVoice";
 import { TUserPath } from "@/type/paths.type";
 import { LayoutDashboard, QrCode, User, UserCog } from "lucide-react";
 
@@ -64,6 +66,17 @@ export const adminPaths: TUserPath[] = [
         element: <h3>Admin User</h3>,
       },
     ],
+  },
+  {
+    label: "Voice",
+    href: "voice",
+    icon: LayoutDashboard,
+    element: <KidsVoices />,
+  },
+  {
+    label: "Voice",
+    href: "voice/upload-kids-voice/:kidsId",
+    element: <UploadKidsVoice />,
   },
   {
     label: "QR Management",

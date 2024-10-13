@@ -2,7 +2,7 @@ import { TSidebarItem, TUserPath } from "@/type/paths.type";
 
 export const sidebarItemsGenerator = (items: TUserPath[]) => {
   const sidebarItems = items.reduce((acc: TSidebarItem[], item) => {
-    if (item.href && item.label) {
+    if (item.href && item.label && item.icon) {
       acc.push({
         href: item.href,
         label: item.label,

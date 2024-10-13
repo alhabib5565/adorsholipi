@@ -9,6 +9,7 @@ type SidebarItemProps = {
 };
 
 const SingleSidebarItem = ({ item, isDropdownItem }: SidebarItemProps) => {
+  if (!item.icon) return;
   return (
     <NavLink
       to={`${item?.href}`}

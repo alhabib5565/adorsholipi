@@ -4,7 +4,7 @@ import { ForwardRefExoticComponent, ReactNode, RefAttributes } from "react";
 export type TUserPath = {
   label: string;
   href?: string;
-  icon: ForwardRefExoticComponent<
+  icon?: ForwardRefExoticComponent<
     Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
   >;
   element?: ReactNode;

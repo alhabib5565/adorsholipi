@@ -9,6 +9,7 @@ const SidebarDropdownItem = ({ item }: { item: TUserPath }) => {
   const handleDropdownOpen = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+  if (!item.icon) return;
   return (
     <div className={cn({ "bg-[#EDF4FC80]": isDropdownOpen })}>
       <button
