@@ -15,7 +15,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next,
 ) => {
-  console.log(err);
+  // console.log(err);
 
   let errorResponse: TErrorResponse = {
     statusCode: 500,

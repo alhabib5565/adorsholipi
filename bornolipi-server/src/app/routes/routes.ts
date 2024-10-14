@@ -3,6 +3,7 @@ import { user_router } from '../module/user/user.route';
 import { authRouter } from '../module/auth/auth.route';
 import { qrCodeRouter } from '../module/qrcode/qrCode.route';
 import { voiceRoute } from '../module/voice/voice.route';
+import { kidsAccountRouter } from '../module/kidsAccount/kidsAccount.route';
 
 const router = express.Router();
 
@@ -18,6 +19,10 @@ const appRoutes = [
   {
     path: '/qr-codes',
     routes: qrCodeRouter,
+  },
+  {
+    path: '/kids-accounts',
+    routes: kidsAccountRouter,
   },
   {
     path: '/voices',
