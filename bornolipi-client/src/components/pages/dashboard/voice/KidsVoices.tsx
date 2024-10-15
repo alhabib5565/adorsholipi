@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -12,12 +11,13 @@ import {
 } from "@/components/ui/table";
 import MyPagination from "@/components/myUi/MyPagination";
 import PageHeader from "@/components/shared/PageHeader";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { useGetAllQRCodsQuery } from "@/redux/api/qr-code.api";
-import { CloudUpload, Edit, Eye } from "lucide-react";
+import { CloudUpload, Edit, Eye, Pause, Play } from "lucide-react";
 import { formatToTargetDate } from "@/globalUtils/common";
 import { Link } from "react-router-dom";
+import { useGetAllKidsAccountQuery } from "@/redux/api/kids-account.api";
+import { TKids } from "../kidsProfile/kids.type";
 
 const activationPageTabItems = [
   {
@@ -25,25 +25,48 @@ const activationPageTabItems = [
     value: "all",
   },
   {
-    lebel: "New QR Code",
+    lebel: "New",
     value: "new",
   },
   {
-    lebel: "Un painted",
-    value: "Un Painted",
+    lebel: "Uploaded",
+    value: "Uploaded",
   },
   {
-    lebel: "Painted",
-    value: "Painted",
+    lebel: "Not Uploaded",
+    value: "Not Uploaded",
   },
 ];
-
-//TODO: fetch kids account data. currently have user data
 
 const KidsVoices = () => {
   const [activeTab, setActiveTab] = useState("all");
 
-  const { data, isLoading } = useGetAllQRCodsQuery({});
+  const [currentlyPlaying, setCurrentlyPlaying] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleVoicePlay = (voiceUrl: string) => {
+    if (audioRef.current) {
+      audioRef.current.pause(); // Stop the currently playing audio
+    }
+
+    if (currentlyPlaying === voiceUrl) {
+      // If the same voice is playing, stop it
+      setCurrentlyPlaying(null);
+      return;
+    }
+
+    const audio = new Audio(voiceUrl);
+    audioRef.current = audio; // Set the current audio instance
+    audio.play();
+    setCurrentlyPlaying(voiceUrl); // Mark this voice as currently playing
+
+    // Event listener to reset state when audio ends
+    audio.onended = () => {
+      setCurrentlyPlaying(null);
+    };
+  };
+
+  const { data, isLoading } = useGetAllKidsAccountQuery({});
   if (isLoading) {
     return <p>Loading..</p>;
   }
@@ -107,17 +130,41 @@ const KidsVoices = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.data.map((qrCode: any, index: number) => (
-                <TableRow key={qrCode._id}>
+              {data.data.map((kidsAccount: TKids, index: number) => (
+                <TableRow key={kidsAccount._id}>
                   <TableCell className="flex items-center gap-4">
                     {index + 1}
                   </TableCell>
-                  <TableCell>Child Name</TableCell>
-                  <TableCell>Age</TableCell>
-                  <TableCell>Gender</TableCell>
+                  <TableCell>{kidsAccount.kidsName}</TableCell>
+                  <TableCell>{kidsAccount.age}</TableCell>
+                  <TableCell>{kidsAccount.gender}</TableCell>
                   <TableCell>Parent Account</TableCell>
-                  <TableCell>{formatToTargetDate(qrCode.createdAt)}</TableCell>
-                  <TableCell>Voice File</TableCell>
+                  <TableCell>
+                    {formatToTargetDate(kidsAccount.createdAt)}
+                  </TableCell>
+                  <TableCell>
+                    <TableCell>
+                      {kidsAccount.voice ? (
+                        <Button
+                          onClick={() =>
+                            handleVoicePlay(kidsAccount.voice || "")
+                          }
+                          className={cn("p-0 size-10", {
+                            "bg-primary text-white":
+                              currentlyPlaying === kidsAccount.voice,
+                          })}
+                        >
+                          {currentlyPlaying === kidsAccount.voice ? (
+                            <Pause />
+                          ) : (
+                            <Play />
+                          )}
+                        </Button>
+                      ) : (
+                        "No Voice"
+                      )}
+                    </TableCell>
+                  </TableCell>
 
                   <TableCell className="h-full">
                     <div className="justify-end items-center gap-6 flex ">
@@ -131,14 +178,18 @@ const KidsVoices = () => {
                         className="p-0 h-fit text-red-600 hover:text-red-600"
                         variant="ghost"
                       >
-                        <Edit />
+                        <Link to={`/voice/eidt-kids-voice/${kidsAccount._id}`}>
+                          <Edit />
+                        </Link>
                       </Button>
                       <Button
                         className="p-0 h-fit text-[#374151] hover:text-[#374151]"
                         variant="ghost"
-                        asChild
+                        disabled={!!kidsAccount?.voice}
                       >
-                        <Link to={`/voice/upload-kids-voice/${qrCode._id}`}>
+                        <Link
+                          to={`/voice/upload-kids-voice/${kidsAccount._id}`}
+                        >
                           <CloudUpload />
                         </Link>
                       </Button>

@@ -1,5 +1,6 @@
 import AdminUser from "@/components/pages/dashboard/adminUser/AdminUser";
 import CreateUser from "@/components/pages/dashboard/adminUser/CreateUser";
+import EditUser from "@/components/pages/dashboard/adminUser/EditUser";
 import DashboardHome from "@/components/pages/dashboard/dashboardHome/DashboardHome";
 import GuestUser from "@/components/pages/dashboard/guestUser/GuestUser";
 import KidsProfile from "@/components/pages/dashboard/kidsProfile/KidsProfile";
@@ -60,6 +61,11 @@ export const adminPaths: TUserPath[] = [
         element: <CreateUser />,
       },
       {
+        label: "Create User",
+        href: "user-management/edit-user/:id",
+        element: <EditUser />,
+      },
+      {
         label: "Admin Roles",
         href: "admin-roles",
         icon: User,
@@ -74,8 +80,13 @@ export const adminPaths: TUserPath[] = [
     element: <KidsVoices />,
   },
   {
-    label: "Voice",
+    label: "Kids Voice upload",
     href: "voice/upload-kids-voice/:kidsId",
+    element: <UploadKidsVoice />,
+  },
+  {
+    label: "Kids Voice edit",
+    href: "voice/eidt-kids-voice/:kidsId",
     element: <UploadKidsVoice />,
   },
   {

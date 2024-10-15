@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyForm from "@/components/from/MyForm";
 import MyInput from "@/components/from/MyInput";
 import MySelect from "@/components/from/MySelect";
 import PageHeader from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
+import { useCreateUserMutation } from "@/redux/api/user.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 import { z } from "zod";
 
@@ -46,16 +50,27 @@ const formSchema = z
   });
 
 const defaultValues = {
-  name: "",
-  email: "",
+  name: "habib",
+  email: "al@gmail.com",
   designation: "",
   role: "",
   password: "",
   confirmPassword: "",
 };
 const CreateUser = () => {
-  const onSubmit = (value: FieldValues) => {
-    console.log(value);
+  const navigate = useNavigate();
+
+  const [createUser] = useCreateUserMutation();
+
+  const onSubmit = async (value: FieldValues) => {
+    const res = (await createUser(value)) as any;
+    console.log(res, "res");
+    if (res.data) {
+      toast.success(res.data?.message);
+      navigate("/admin-user");
+    } else if (res?.error) {
+      toast.error(res.error?.message || "Something went wrong");
+    }
   };
   return (
     <div className="space-y-6">
@@ -81,12 +96,12 @@ const CreateUser = () => {
             />
             <MySelect
               name="designation"
-              label="Select One"
+              label="Assigned Role"
               placeholder="Designation"
               options={[
                 {
                   label: "Admin",
-                  value: "admin",
+                  value: "Admin",
                 },
               ]}
               isSuggestion={false}
@@ -98,7 +113,7 @@ const CreateUser = () => {
               options={[
                 {
                   label: "Admin",
-                  value: "admin",
+                  value: "Admin",
                 },
               ]}
               isSuggestion={false}

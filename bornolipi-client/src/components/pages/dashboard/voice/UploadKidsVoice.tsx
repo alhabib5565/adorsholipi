@@ -1,14 +1,17 @@
 import PageHeader from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUploadKidsVoiceMutation } from "@/redux/api/kids-voice.api";
+import { useUploadKidsVoiceMutation } from "@/redux/api/kids-account.api";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const UploadKidsVoice = () => {
   const { kidsId } = useParams();
-  const [voice, setVoice] = useState<File | null>(null); // State to hold the file
+  const [voice, setVoice] = useState<File | null>(null);
+
+  const navigate = useNavigate();
+
   const [uploadVoice] = useUploadKidsVoiceMutation();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -20,11 +23,11 @@ const UploadKidsVoice = () => {
     if (voice) {
       const formData = new FormData();
       formData.append("file", voice);
-      formData.append("data", JSON.stringify({ kidsId }));
 
-      const res = await uploadVoice(formData);
-      if (res.data?.data) {
+      const res = await uploadVoice({ data: formData, id: kidsId });
+      if (res.data) {
         toast.success(res.data?.message);
+        navigate("/voice");
       } else {
         toast.error("Something went wrong");
       }

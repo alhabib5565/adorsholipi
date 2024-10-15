@@ -14,34 +14,17 @@ import {
 } from "@/components/ui/table";
 import MyPagination from "@/components/myUi/MyPagination";
 import PageHeader from "@/components/shared/PageHeader";
+import { useGetAllUsersQuery } from "@/redux/api/user.api";
+import { TUser } from "@/type/user.tpe";
+import { Link } from "react-router-dom";
 
-const parents = [
-  {
-    parentName: "John Doe",
-    email: "johndoe@example.com",
-    accountCreationDate: "2023-01-15",
-    lastLogin: "2024-09-29",
-    status: "active",
-    numberOfChild: 2,
-  },
-  {
-    parentName: "Jane Smith",
-    email: "janesmith@example.com",
-    accountCreationDate: "2022-07-20",
-    lastLogin: "2024-09-28",
-    status: "inactive",
-    numberOfChild: 1,
-  },
-  {
-    parentName: "Michael Johnson",
-    email: "michaelj@example.com",
-    accountCreationDate: "2021-11-05",
-    lastLogin: "2024-09-26",
-    status: "active",
-    numberOfChild: 3,
-  },
-];
 const AdminUser = () => {
+  const { data, isLoading } = useGetAllUsersQuery({});
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader />
@@ -58,11 +41,14 @@ const AdminUser = () => {
             <TableHeader className="bg-secondary">
               <TableRow>
                 <TableHead className="w-[100px] text-primary font-medium">
-                  #
+                  User ID
                 </TableHead>
                 <TableHead className="text-primary">Name</TableHead>
                 <TableHead className="text-primary font-medium">
                   Email
+                </TableHead>
+                <TableHead className="text-primary font-medium">
+                  Designation
                 </TableHead>
                 <TableHead className="text-primary font-medium">
                   User Role
@@ -74,29 +60,38 @@ const AdminUser = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {parents.map((user, index) => (
-                <TableRow key={user.email}>
-                  <TableCell>{index}</TableCell>
-                  <TableCell>{user.parentName}</TableCell>
+              {data.data.map((user: TUser) => (
+                <TableRow key={user._id}>
+                  <TableCell>{user.userId}</TableCell>
+                  <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.designation}</TableCell>
 
                   <TableCell>
                     <span className="px-3 rounded-[12px] py-0.5 bg-secondary text-[#667085] text-sm font-medium flex items-center gap-2 w-fit">
                       <span className="size-0.5 p-0.5 rounded-full bg-[#667085]"></span>{" "}
-                      Super Admin
+                      {user.role}
                     </span>
                   </TableCell>
                   <TableCell className="flex gap-4 justify-end">
                     <div className="justify-end items-center flex text-white">
-                      <button className="px-1.5 py-1 bg-[#6b7280]  rounded-tl rounded-bl text-center  text-xs font-normal leading-[18px] tracking-tight">
+                      <Button
+                        disabled
+                        className="px-1.5 py-1 bg-[#6b7280] h-fit rounded-none  rounded-tl rounded-bl text-center  text-xs font-normal leading-[18px] tracking-tight"
+                      >
                         View
-                      </button>
-                      <button className="px-1.5 py-1 bg-[#4383ce] text-center  text-xs font-normal leading-[18px] tracking-tight">
-                        Edit
-                      </button>
-                      <button className="px-1.5 py-1 bg-red-600 rounded-tr rounded-br text-center  text-xs font-normal leading-[18px] tracking-tight">
+                      </Button>
+                      <Button className="px-1.5 py-1 bg-[#4383ce] h-fit rounded-none text-center  text-xs font-normal leading-[18px] tracking-tight">
+                        <Link to={`/user-management/edit-user/${user._id}`}>
+                          Edit
+                        </Link>
+                      </Button>
+                      <Button
+                        disabled
+                        className="px-1.5 py-1 bg-red-600 h-fit rounded-none rounded-tr rounded-br text-center  text-xs font-normal leading-[18px] tracking-tight"
+                      >
                         Delete
-                      </button>
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>
