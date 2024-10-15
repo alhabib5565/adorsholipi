@@ -15,7 +15,6 @@ export const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     const decoded = verifyToken(token, config.jwt_access_secret as string);
-
     const user = await User.findOne({
       email: decoded.email,
       role: decoded.role,
@@ -32,15 +31,13 @@ export const auth = (...requiredRoles: TUserRole[]) => {
       throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
     }
 
-    if (requiredRoles && !requiredRoles.includes(decoded.role)) {
+    if (requiredRoles.length > 0 && !requiredRoles.includes(decoded.role)) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
         'You are not authorized  hi!',
       );
     }
-
     req.user = decoded;
-    req.user.userId = user._id;
     next();
   });
 };
