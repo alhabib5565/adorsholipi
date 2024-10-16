@@ -38,10 +38,11 @@ const uploadKidsVoice = async (file: any, kidsId: string) => {
   if (!file) {
     throw new AppError(httpStatus.NOT_FOUND, 'Voice File not found');
   }
-  const uploadedFileInfo: any = await sendFileToCloudinary(
-    file.originalname,
-    file.buffer,
-  );
+  const uploadedFileInfo: any = await sendFileToCloudinary({
+    fileName: file.originalname,
+    fileBuffer: file.buffer,
+    resource_type: 'raw',
+  });
   const voiceURL = uploadedFileInfo?.secure_url;
 
   const result = await KidsAccount.findOneAndUpdate(

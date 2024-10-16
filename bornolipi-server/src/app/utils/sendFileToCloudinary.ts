@@ -8,11 +8,21 @@ cloudinary.config({
   api_secret: config.cloudinary_api_secret,
 });
 
-export const sendFileToCloudinary = (fileName: string, fileBuffer: Buffer) => {
+type TSendFileToCloudinaryProps = {
+  fileName: string;
+  fileBuffer: Buffer;
+  resource_type: 'image' | 'video' | 'raw' | 'auto' | undefined;
+};
+
+export const sendFileToCloudinary = ({
+  fileName,
+  fileBuffer,
+  resource_type,
+}: TSendFileToCloudinaryProps) => {
   // console.log({fileBuffer, file})
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { public_id: `${Date.now()}${fileName.trim()}`, resource_type: 'raw' },
+      { public_id: `${Date.now()}${fileName.trim()}`, resource_type },
       (error, result) => {
         if (error) {
           return reject(error);
