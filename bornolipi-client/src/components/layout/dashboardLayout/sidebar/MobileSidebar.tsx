@@ -3,7 +3,7 @@ import { MenuIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logo from "../../../../assets/logo/logo.png";
+import logo from "../../../../assets/logo/bornolipi-logo.png";
 import { adminPaths } from "@/routes/admin.routes";
 import SidebarDropdownItem from "./SidebarDropdownItem";
 import SingleSidebarItem from "./SingleSidebarItem";
@@ -18,7 +18,7 @@ const MobileSidebar = () => {
       <Button
         variant={"outline"}
         onClick={handleHide}
-        className="absolute top-4 left-5 z-50"
+        className="fixed top-4 left-5 z-50"
       >
         <MenuIcon className="text-black " />
       </Button>
@@ -34,9 +34,7 @@ const MobileSidebar = () => {
           <img
             alt="logo"
             src={logo}
-            width={180}
-            height={400}
-            className="mx-auto my-4 "
+            className="mx-auto mb-4 w-[115.83px] h-12"
           />
         </Link>
         <hr className=" mb-6" />

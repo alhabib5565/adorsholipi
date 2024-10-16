@@ -6,6 +6,8 @@ import Feedback from "@/components/pages/dashboard/feedback/Feedback";
 import GuestUser from "@/components/pages/dashboard/guestUser/GuestUser";
 import KidsProfile from "@/components/pages/dashboard/kidsProfile/KidsProfile";
 import ParentAccount from "@/components/pages/dashboard/parentAccount/ParentAccount";
+import CreateProduct from "@/components/pages/dashboard/products/CreateProduct";
+import ProductsList from "@/components/pages/dashboard/products/ProductsList";
 import PrintQR from "@/components/pages/dashboard/QRManagement/PrintQR";
 import QRActivation from "@/components/pages/dashboard/QRManagement/QRActivation";
 import QRGenerate from "@/components/pages/dashboard/QRManagement/QRGenerate";
@@ -13,6 +15,7 @@ import KidsVoices from "@/components/pages/dashboard/voice/KidsVoices";
 import UploadKidsVoice from "@/components/pages/dashboard/voice/UploadKidsVoice";
 import { TUserPath } from "@/type/paths.type";
 import {
+  Kanban,
   LayoutDashboard,
   MessageCircle,
   QrCode,
@@ -27,6 +30,7 @@ export const adminPaths: TUserPath[] = [
     icon: LayoutDashboard,
     element: <DashboardHome />,
   },
+
   {
     label: "User Account",
     icon: User,
@@ -117,6 +121,24 @@ export const adminPaths: TUserPath[] = [
         href: "qr-management/print-qr",
         icon: QrCode,
         element: <PrintQR />,
+      },
+    ],
+  },
+  {
+    label: "Product List",
+    icon: User,
+    children: [
+      {
+        label: "Product",
+        href: "products-list",
+        icon: Kanban,
+        element: <ProductsList />,
+      },
+      {
+        label: "Create Product",
+        href: "create-product",
+        icon: Kanban,
+        element: <CreateProduct />,
       },
     ],
   },
