@@ -2,6 +2,7 @@ import AdminUser from "@/components/pages/dashboard/adminUser/AdminUser";
 import CreateUser from "@/components/pages/dashboard/adminUser/CreateUser";
 import EditUser from "@/components/pages/dashboard/adminUser/EditUser";
 import DashboardHome from "@/components/pages/dashboard/dashboardHome/DashboardHome";
+import Feedback from "@/components/pages/dashboard/feedback/Feedback";
 import GuestUser from "@/components/pages/dashboard/guestUser/GuestUser";
 import KidsProfile from "@/components/pages/dashboard/kidsProfile/KidsProfile";
 import ParentAccount from "@/components/pages/dashboard/parentAccount/ParentAccount";
@@ -11,7 +12,13 @@ import QRGenerate from "@/components/pages/dashboard/QRManagement/QRGenerate";
 import KidsVoices from "@/components/pages/dashboard/voice/KidsVoices";
 import UploadKidsVoice from "@/components/pages/dashboard/voice/UploadKidsVoice";
 import { TUserPath } from "@/type/paths.type";
-import { LayoutDashboard, QrCode, User, UserCog } from "lucide-react";
+import {
+  LayoutDashboard,
+  MessageCircle,
+  QrCode,
+  User,
+  UserCog,
+} from "lucide-react";
 
 export const adminPaths: TUserPath[] = [
   {
@@ -74,7 +81,7 @@ export const adminPaths: TUserPath[] = [
     ],
   },
   {
-    label: "Voice",
+    label: "Voice Upload",
     href: "voice",
     icon: LayoutDashboard,
     element: <KidsVoices />,
@@ -112,5 +119,11 @@ export const adminPaths: TUserPath[] = [
         element: <PrintQR />,
       },
     ],
+  },
+  {
+    label: "Feedback",
+    href: "feedback",
+    icon: MessageCircle,
+    element: <Feedback />,
   },
 ];

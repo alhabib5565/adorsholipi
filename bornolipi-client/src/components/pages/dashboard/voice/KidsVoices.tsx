@@ -14,10 +14,10 @@ import PageHeader from "@/components/shared/PageHeader";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { CloudUpload, Edit, Eye, Pause, Play } from "lucide-react";
-import { formatToTargetDate } from "@/globalUtils/common";
 import { Link } from "react-router-dom";
 import { useGetAllKidsAccountQuery } from "@/redux/api/kids-account.api";
 import { TKids } from "../kidsProfile/kids.type";
+import { formateDateWithHrAndMM } from "@/utils/common";
 
 const activationPageTabItems = [
   {
@@ -140,7 +140,7 @@ const KidsVoices = () => {
                   <TableCell>{kidsAccount.gender}</TableCell>
                   <TableCell>Parent Account</TableCell>
                   <TableCell>
-                    {formatToTargetDate(kidsAccount.createdAt)}
+                    {formateDateWithHrAndMM(kidsAccount.createdAt)}
                   </TableCell>
                   <TableCell>
                     <TableCell>
